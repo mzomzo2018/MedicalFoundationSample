@@ -105,16 +105,16 @@ namespace MuhammadAl_ZubairObaid.MedicalFoundation.Contexts
         {
             // Querying for Patients that matches the parameter object
             // To add required object, it must not exist in the database
-            if (!await Patients.Where(queryingPatient => queryingPatient == Patient).AnyAsync())
+            if (!await Patients.Where(queryingPatient => queryingPatient == patient).AnyAsync())
             {
                 // Adds the parameter object to the database, then applies underlying changes.
-                await Patients.AddAsync(Patient);
+                await Patients.AddAsync(patient);
                 // All operations on required object are stored in memory until calling SaveChanges
                 await SaveChangesAsync();
             }
             // If required object is found on the database, it will be automatically updated.
             else
-                await Update(Patient);
+                await Update(patient);
         }
         /// <summary>
         /// Updates <see cref="Patient"/> object on the database
@@ -125,9 +125,9 @@ namespace MuhammadAl_ZubairObaid.MedicalFoundation.Contexts
         {
             // Querying for Patients that matches the parameter object
             // To update required object, it must exist in the database
-            if (await Patients.Where(queryingPatient => queryingPatient == Patient).AnyAsync())
+            if (await Patients.Where(queryingPatient => queryingPatient == patient).AnyAsync())
             {
-                await Patients.AddAsync(Patient);
+                await Patients.AddAsync(patient);
                 // All operations on required object are stored in memory until calling SaveChanges
                 await SaveChangesAsync();
             }

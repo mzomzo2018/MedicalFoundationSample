@@ -31,7 +31,6 @@
   <ItemGroup>
     <ProjectReference Include="..\MuhammadAl-ZubairObaid.MedicalFoundation.Data\MuhammadAl-ZubairObaid.MedicalFoundation.Data.csproj" />
     <ProjectReference Include="..\MuhammadAl-ZubairObaid.MedicalFoundation.Domain\MuhammadAl-ZubairObaid.MedicalFoundation.Domain.csproj" />
-    <ProjectReference Include="..\MuhammadAl-ZubairObaid.Utilities\MuhammadAl-ZubairObaid.Utilities.csproj" />
   </ItemGroup>
 
 </Project>

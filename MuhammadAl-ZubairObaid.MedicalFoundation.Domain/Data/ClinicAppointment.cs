@@ -4,19 +4,21 @@ namespace MuhammadAl_ZubairObaid.MedicalFoundation.Domain
 {
     public class ClinicAppointment : MFEntity
     {
-        Billing billing;
-        public AppointmentStatus Status { get; set; }
-        public DateTime Date { get; set; }
-        public Billing Billing
+        AppointmentStatus status;
+        public AppointmentStatus Status
         {
-            get => billing; set
+            get => status;
+            set
             {
                 // Billing must be after preserving appointment and before treatment
-                if (Status == AppointmentStatus.Awaiting)
-                    billing = value;
+                if (Billing != null)
+                    Status = AppointmentStatus.Done;
                 else
-                    billing = null;
+                    Status = value;
+
             }
         }
+        public DateTime Date { get; set; }
+        public Billing Billing { get; set; }
     }
 }
