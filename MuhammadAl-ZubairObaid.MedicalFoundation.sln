@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MuhammadAl-ZubairObaid.Medi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MuhammadAl-ZubairObaid.MedicalFoundation", "MuhammadAl-ZubairObaid.MedicalFoundation\MuhammadAl-ZubairObaid.MedicalFoundation.csproj", "{ED30B31F-5051-415B-8E47-E7EC0780E644}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MuhammadAl-ZubairObaid.MedicalFoundation.WebAPI", "MuhammadAl-ZubairObaid.MedicalFoundation.WebAPI\MuhammadAl-ZubairObaid.MedicalFoundation.WebAPI.csproj", "{55F052C0-B8B3-4983-9B79-F45E5E91CA29}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{ED30B31F-5051-415B-8E47-E7EC0780E644}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED30B31F-5051-415B-8E47-E7EC0780E644}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED30B31F-5051-415B-8E47-E7EC0780E644}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55F052C0-B8B3-4983-9B79-F45E5E91CA29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55F052C0-B8B3-4983-9B79-F45E5E91CA29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55F052C0-B8B3-4983-9B79-F45E5E91CA29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55F052C0-B8B3-4983-9B79-F45E5E91CA29}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
