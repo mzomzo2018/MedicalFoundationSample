@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using MuhammadAl_ZubairObaid.MedicalFoundation.Domain;
 using MuhammadAl_ZubairObaid.MedicalFoundation.Domain.Primitives;
 using System.ComponentModel;
@@ -6,30 +8,40 @@ namespace MuhammadAl_ZubairObaid.MedicalFoundation.Contexts
 {
     public class MedicalFoundationDBContext : DbContext
     {
+        private ILogger<MedicalFoundationDBContext> _logger;
+
+        public MedicalFoundationDBContext(ILogger<MedicalFoundationDBContext> logger)
+        {
+            _logger = logger;
+            Database.EnsureCreated();
+        }
+        [Obsolete("Used in MedicalFoundation console application, which is deprecated")]
+        public MedicalFoundationDBContext() { }
         /// <summary>
         /// Singleton property to access <see cref="MedicalFoundationDBContext"/>
         /// </summary>
+        [Obsolete("Used in MedicalFoundation console application, which is deprecated")]
         public static MedicalFoundationDBContext Context { get; } = new MedicalFoundationDBContext();
         /// <summary>
         /// Database set of type <see cref="Patient"/>
         /// </summary>
-        DbSet<Patient> Patients { get; set; }
+        public DbSet<Patient> Patients { get; set; }
         /// <summary>
         /// Database set of type <see cref="PatientVisit"/>
         /// </summary>
-        DbSet<PatientVisit> PatientVisits { get; set; }
+        public DbSet<PatientVisit> PatientVisits { get; set; }
         /// <summary>
         /// Database set of type <see cref="Clinician"/>
         /// </summary>
-        DbSet<Clinician> Clinicians { get; set; }
+        public DbSet<Clinician> Clinicians { get; set; }
         /// <summary>
         /// Database set of type <see cref="ClinicAppointment"/>
         /// </summary>
-        DbSet<ClinicAppointment> ClinicAppointments { get; set; }
+        public DbSet<ClinicAppointment> ClinicAppointments { get; set; }
         /// <summary>
         /// Database set of type <see cref="Billing"/>
         /// </summary>
-        DbSet<Billing> Billings { get; set; }
+        public DbSet<Billing> Billings { get; set; }
         /// <summary>
         /// Adds <typeparamref name="TMFEntity"/> object to the database
         /// </summary>
@@ -43,7 +55,7 @@ namespace MuhammadAl_ZubairObaid.MedicalFoundation.Contexts
                 // Checking if entity is added
                 return entityEntry.State == EntityState.Added;
             }
-            catch 
+            catch
             {
                 return false;
             }
@@ -75,11 +87,26 @@ namespace MuhammadAl_ZubairObaid.MedicalFoundation.Contexts
         {
             try
             {
-                var entityEntry = base.Update(mfObject);
+                var entityEntry = base.Remove(mfObject);
                 // Checking if entity is deleted
                 return entityEntry.State == EntityState.Deleted;
             }
             catch
+            {
+                return false;
+            }
+        }
+        /// <summary>
+        /// Saves all changes made to <see cref="MedicalFoundationDBContext"/> database
+        /// </summary>
+        /// <returns><c>true</c> if all pending changes are saved; Otherwise <c>false</c></returns>
+        public async Task<bool> SaveChangesAsync()
+        {
+            try 
+            {
+                return await base.SaveChangesAsync() > 0;
+            }
+            catch 
             {
                 return false;
             }
@@ -93,7 +120,7 @@ namespace MuhammadAl_ZubairObaid.MedicalFoundation.Contexts
         {
             return await FindAsync<TMFEntity>(entityID);
         }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        protected override async void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite("Data Source=MF.db");
         }
