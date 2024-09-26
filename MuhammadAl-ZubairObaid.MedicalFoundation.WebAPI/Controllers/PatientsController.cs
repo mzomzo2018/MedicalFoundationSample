@@ -22,7 +22,7 @@ namespace MuhammadAl_ZubairObaid.MedicalFoundation.WebAPI.Controllers
             _repository = repository;
         }
         [HttpPut]
-        [Authorize]
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> AddPatient(Patient patient)
         {
             var result = await _repository.Add(patient);
@@ -32,7 +32,7 @@ namespace MuhammadAl_ZubairObaid.MedicalFoundation.WebAPI.Controllers
                 return BadRequest();
         }
         [HttpPost]
-        [Authorize]
+        [Authorize(Policy = "Admin")]
         public IActionResult UpdatePatient(Patient patient)
         {
             var result = _repository.Update(patient);
@@ -42,7 +42,7 @@ namespace MuhammadAl_ZubairObaid.MedicalFoundation.WebAPI.Controllers
                 return NotFound();
         }
         [HttpDelete]
-        [Authorize]
+        [Authorize(Policy = "Admin")]
         public IActionResult DeletePatient(Patient patient)
         {
             var result = _repository.Remove(patient);

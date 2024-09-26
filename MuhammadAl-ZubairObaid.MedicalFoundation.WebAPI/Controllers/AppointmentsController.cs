@@ -22,7 +22,7 @@ namespace MuhammadAl_ZubairObaid.MedicalFoundation.WebAPI.Controllers
             _repository = repository;
         }
         [HttpPut]
-        [Authorize]
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> AddClinicAppointment(ClinicAppointment clinicAppointment)
         {
             var result = await _repository.Add(clinicAppointment);
@@ -32,7 +32,7 @@ namespace MuhammadAl_ZubairObaid.MedicalFoundation.WebAPI.Controllers
                 return BadRequest();
         }
         [HttpPost]
-        [Authorize]
+        [Authorize(Policy = "Admin")]
         public IActionResult UpdateClinicAppointment(ClinicAppointment clinicAppointment)
         {
             var result = _repository.Update(clinicAppointment);
@@ -42,7 +42,7 @@ namespace MuhammadAl_ZubairObaid.MedicalFoundation.WebAPI.Controllers
                 return NotFound();
         }
         [HttpDelete]
-        [Authorize]
+        [Authorize(Policy = "Admin")]
         public IActionResult DeleteClinicAppointment(ClinicAppointment clinicAppointment)
         {
             var result = _repository.Remove(clinicAppointment);

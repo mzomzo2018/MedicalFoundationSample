@@ -11,7 +11,7 @@ namespace MuhammadAl_ZubairObaid.MedicalFoundation.Data.Repositories
     {
         public Task<bool> Add(TMFEntity entity);
         public Task<TMFEntity> Get(Guid entityID);
-        public Task<IList<TMFEntity>> All();
+        public Task<IList<TMFEntity>> All(int pageIndex, int countForEveryPage);
         public bool Remove(TMFEntity entity);
         public bool Update(TMFEntity entity);
         public Task SaveChanges();

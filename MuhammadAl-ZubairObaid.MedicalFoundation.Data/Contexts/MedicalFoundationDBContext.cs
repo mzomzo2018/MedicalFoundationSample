@@ -55,8 +55,9 @@ namespace MuhammadAl_ZubairObaid.MedicalFoundation.Contexts
                 // Checking if entity is added
                 return entityEntry.State == EntityState.Added;
             }
-            catch
+            catch (Exception ex)
             {
+                _logger.LogError(ex, "DbContext operation error");
                 return false;
             }
         }
@@ -73,8 +74,9 @@ namespace MuhammadAl_ZubairObaid.MedicalFoundation.Contexts
                 // Checking if entity is updated
                 return entityEntry.State == EntityState.Modified;
             }
-            catch
+            catch (Exception ex)
             {
+                _logger.LogError(ex, "DbContext operation error");
                 return false;
             }
         }
@@ -91,8 +93,9 @@ namespace MuhammadAl_ZubairObaid.MedicalFoundation.Contexts
                 // Checking if entity is deleted
                 return entityEntry.State == EntityState.Deleted;
             }
-            catch
+            catch (Exception ex)
             {
+                _logger.LogError(ex, "DbContext operation error");
                 return false;
             }
         }
@@ -106,8 +109,9 @@ namespace MuhammadAl_ZubairObaid.MedicalFoundation.Contexts
             {
                 return await base.SaveChangesAsync() > 0;
             }
-            catch 
+            catch (Exception ex)
             {
+                _logger.LogError(ex, "DbContext operation error");
                 return false;
             }
         }
@@ -118,7 +122,15 @@ namespace MuhammadAl_ZubairObaid.MedicalFoundation.Contexts
         /// <returns>Found <typeparamref name="TMFEntity"/> object or null value if not found</returns>
         public async Task<TMFEntity?> Get<TMFEntity>(Guid entityID) where TMFEntity : MFEntity
         {
-            return await FindAsync<TMFEntity>(entityID);
+            try
+            {
+                return await FindAsync<TMFEntity>(entityID);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "DbContext operation error");
+                return null;
+            }
         }
         protected override async void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

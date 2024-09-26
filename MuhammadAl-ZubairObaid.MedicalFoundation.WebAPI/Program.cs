@@ -27,10 +27,11 @@ namespace MuhammadAl_ZubairObaid.MedicalFoundation.WebAPI
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(options =>
             {
+                // Add JWT bearer as OpenApiSecurityScheme and OpenApiSecurityRequirement to SwaggerGenOptions; Which is required for authorization
                 var securityScheme = new OpenApiSecurityScheme
                 {
                     Name = "JWT Authentication",
-                    Description = "Enter token",
+                    Description = "Enter JWT token",
                     In = ParameterLocation.Header,
                     Type = SecuritySchemeType.Http,
                     Scheme = "bearer",
@@ -54,19 +55,26 @@ namespace MuhammadAl_ZubairObaid.MedicalFoundation.WebAPI
                     }
                 };
 
-                options.AddSecurityRequirement(securityRequirement); options.IncludeXmlComments(Assembly.GetExecutingAssembly().Location.Replace("dll", "xml"));
+                options.AddSecurityRequirement(securityRequirement); 
+                // Used for displaying API documentation
+                options.IncludeXmlComments(Assembly.GetExecutingAssembly().Location.Replace("dll", "xml"));
             });
+            // Add Serilog service to the container
             builder.Services.AddSerilog((config) => { config.WriteTo.File("MFlog.log", Serilog.Events.LogEventLevel.Error).WriteTo.Console(); });
+            // Add MedicalFoundationDBContext to the container
             builder.Services.AddDbContext<MedicalFoundationDBContext>();
+            // Adding and configuring JWT bearer authentication
             builder.Services.AddAuthentication(options => 
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(options =>
             {
+                // Recipient address
                 options.Audience = "http://localhost:7163";
                 options.SaveToken = true;
                 options.RequireHttpsMetadata = true;
+                // Supply TokenValidationParameters
                 options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
                 {
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["DefaultUser:PublicKey"])),
@@ -75,9 +83,16 @@ namespace MuhammadAl_ZubairObaid.MedicalFoundation.WebAPI
                 };
             }).AddBearerToken(options =>
             {
-                options.BearerTokenExpiration = new TimeSpan(0, 10, 0);
+                // Bearer token expires after 15 minutes
+                options.BearerTokenExpiration = new TimeSpan(0, 15, 0);
             });
-            builder.Services.AddAuthorization(options => { options.AddPolicy("Admin", policy => policy.RequireRole("Administrator")); });
+            // Adding and configuring API authorization
+            builder.Services.AddAuthorization(options => { 
+                // Adding Admin policy; which requires Administrator roles.
+                // Applied for testing purposes
+                options.AddPolicy("Admin", policy => policy.RequireRole("Administrator")); 
+            });
+            // Registering scoped services
             builder.Services.AddScoped<IMFRepository<Patient>,PatientRepository>();
             builder.Services.AddScoped<IMFRepository<ClinicAppointment>,ClinicAppointmentRepository>();
             builder.Services.AddScoped<IMFRepository<Billing>,BillingRepository>();
