@@ -5,6 +5,7 @@
     <RootNamespace>MuhammadAl_ZubairObaid.MedicalFoundation.Data</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

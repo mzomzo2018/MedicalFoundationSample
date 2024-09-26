@@ -57,7 +57,8 @@ namespace MuhammadAl_ZubairObaid.MedicalFoundation.WebAPI
 
                 options.AddSecurityRequirement(securityRequirement); 
                 // Used for displaying API documentation
-                options.IncludeXmlComments(Assembly.GetExecutingAssembly().Location.Replace("dll", "xml"));
+                foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies().Where(e => e.GetName().Name.StartsWith("MuhammadAl-ZubairObaid")))
+                options.IncludeXmlComments(assembly.Location.Replace("dll", "xml"));
             });
             // Add Serilog service to the container
             builder.Services.AddSerilog((config) => { config.WriteTo.File("MFlog.log", Serilog.Events.LogEventLevel.Error).WriteTo.Console(); });
