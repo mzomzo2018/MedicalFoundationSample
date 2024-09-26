@@ -69,7 +69,7 @@ namespace MuhammadAl_ZubairObaid.MedicalFoundation.WebAPI.Controllers
         {
             // For testing purposes, default user credentials are stored in appsettings.json
             if (authRequest.Username == _configuration["DefaultUser:Username"] && authRequest.Password == _configuration["DefaultUser:Password"])
-                return Ok("Your authorization token is: " + GenerateToken(authRequest) + ". Please Authorize(Policy = "Admin") using Swashbuckle Swagger authorization.");
+                return Ok("Your authorization token is: " + GenerateToken(authRequest) + ". Please authorize using Swashbuckle Swagger authorization.");
             else
                 return Problem("Incorrect sign-in credentials");
         }
