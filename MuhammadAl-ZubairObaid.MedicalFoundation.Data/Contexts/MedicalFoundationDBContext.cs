@@ -27,10 +27,6 @@ namespace MuhammadAl_ZubairObaid.MedicalFoundation.Contexts
         /// </summary>
         public DbSet<Patient> Patients { get; set; }
         /// <summary>
-        /// Database set of type <see cref="PatientVisit"/>
-        /// </summary>
-        public DbSet<PatientVisit> PatientVisits { get; set; }
-        /// <summary>
         /// Database set of type <see cref="Clinician"/>
         /// </summary>
         public DbSet<Clinician> Clinicians { get; set; }

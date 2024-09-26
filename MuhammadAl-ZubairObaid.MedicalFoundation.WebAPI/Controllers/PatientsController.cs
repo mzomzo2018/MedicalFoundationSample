@@ -16,11 +16,19 @@ namespace MuhammadAl_ZubairObaid.MedicalFoundation.WebAPI.Controllers
     public class PatientsController : Controller
     {
         private IMFRepository<Patient> _repository;
-
-        public PatientsController(IMFRepository<Patient> repository) 
+        /// <summary>
+        /// Initializes new instance of <see cref="PatientsController"/>
+        /// </summary>
+        /// <param name="repository">Medical foundation repository</param>
+        public PatientsController(IMFRepository<Patient> repository)
         {
             _repository = repository;
         }
+        /// <summary>
+        /// Adds <see cref="Patient"/> to MF repository
+        /// </summary>
+        /// <param name="patient"><see cref="Patient"/> object</param>
+        /// <returns>Action result</returns>
         [HttpPut]
         [Authorize(Policy = "Admin")]
         public async Task<IActionResult> AddPatient(Patient patient)
@@ -31,6 +39,11 @@ namespace MuhammadAl_ZubairObaid.MedicalFoundation.WebAPI.Controllers
             else
                 return BadRequest();
         }
+        /// <summary>
+        /// Updates <see cref="Patient"/> on MF repository
+        /// </summary>
+        /// <param name="patient"><see cref="Patient"/> object</param>
+        /// <returns>Action result</returns>
         [HttpPost]
         [Authorize(Policy = "Admin")]
         public IActionResult UpdatePatient(Patient patient)
@@ -41,6 +54,11 @@ namespace MuhammadAl_ZubairObaid.MedicalFoundation.WebAPI.Controllers
             else
                 return NotFound();
         }
+        /// <summary>
+        /// Deletes <see cref="Patient"/> from MF repository
+        /// </summary>
+        /// <param name="patient"><see cref="Patient"/> object</param>
+        /// <returns>Action result</returns>
         [HttpDelete]
         [Authorize(Policy = "Admin")]
         public IActionResult DeletePatient(Patient patient)
@@ -50,7 +68,12 @@ namespace MuhammadAl_ZubairObaid.MedicalFoundation.WebAPI.Controllers
                 return Ok();
             else
                 return NotFound();
-        }     
+        }
+        /// <summary>
+        /// Retreives <see cref="Patient"/> from MF repository based on entity ID
+        /// </summary>
+        /// <param name="patientId"><see cref="Patient"/> <see cref="Guid"/></param>
+        /// <returns>Action result</returns>
         [HttpGet("/{patientId}")]
         public async Task<IActionResult> GetPatient(Guid patientId)
         {
@@ -59,15 +82,22 @@ namespace MuhammadAl_ZubairObaid.MedicalFoundation.WebAPI.Controllers
                 return Json(result);
             else
                 return NotFound();
-        }     
+        }
+        /// <summary>
+        /// Retreives <see cref="Patient"/>s from MF repository; To handle enormous number of objects, pagenation is required
+        /// </summary>
+        /// <param name="pageIndex">Page number to start; Starting from 0</param>
+        /// <param name="countForEveryPage">Number of objects per page</param>
+        /// <returns>Action result</returns>
         [HttpGet]
-        public async Task<IActionResult> GetPatients()
+        public async Task<IActionResult> GetPatients(int pageIndex, int countForEveryPage)
         {
-            var result = await _repository.All();
+            var result = await _repository.All(pageIndex, countForEveryPage);
             if (result.Count > 0)
                 return Json(result);
             else
                 return NotFound();
         }
+
     }
 }

@@ -82,7 +82,7 @@ namespace MuhammadAl_ZubairObaid.MedicalFoundation.WebAPI.Controllers
             {
                 new(ClaimTypes.Role, "Administrator"),
                 new(ClaimTypes.Email, "admin@swift.phc"),
-                new(ClaimTypes.Name, "The Administrator")
+                new(ClaimTypes.Name, authRequest.Username)
             };
             return identity;
         }
