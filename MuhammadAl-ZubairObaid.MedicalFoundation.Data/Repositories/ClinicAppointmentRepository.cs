@@ -37,9 +37,15 @@ namespace MuhammadAl_ZubairObaid.MedicalFoundation.Data.Repositories
         /// <returns>Operation result as <see cref="bool"/></returns>
         public async Task<bool> Add(ClinicAppointment entity)
         {
-            var result = await _context.Add(entity);
-            if (_saveChangesAutomatically) await _context.SaveChangesAsync();
-            return result;
+            // DTO objects must match its original representaion objects by ID
+            if (_context.Billings.Where(e => e.ID == entity.Billing.ID).Any() && _context.Clinicians.Where(e => e.ID == entity.Clinician.ID).Any())
+            {
+                var result = await _context.Add(entity);
+                if (_saveChangesAutomatically) await _context.SaveChangesAsync();
+                return result;
+            }
+            else
+                return false;
         }
         /// <summary>
         /// Retreives all <see cref="ClinicAppointment"/>s based on <paramref name="pageIndex"/> and <paramref name="countForEveryPage"/>
@@ -83,9 +89,15 @@ namespace MuhammadAl_ZubairObaid.MedicalFoundation.Data.Repositories
         /// <returns>Returns updating result as <see cref="bool"/>; True if found and update succeeded or False if operation failed.</returns>
         public bool Update(ClinicAppointment entity)
         {
-            var result = _context.Update<ClinicAppointment>(entity);
-            if (_saveChangesAutomatically) _context.SaveChanges();
-            return result;
+            // DTO objects must match its original representaion objects by ID
+            if (_context.Billings.Where(e => e.ID == entity.Billing.ID).Any() && _context.Clinicians.Where(e => e.ID == entity.Clinician.ID).Any())
+            {
+                var result = _context.Update<ClinicAppointment>(entity);
+                if (_saveChangesAutomatically) _context.SaveChanges();
+                return result;
+            }
+            else
+                return false;
         }
     }
 }
