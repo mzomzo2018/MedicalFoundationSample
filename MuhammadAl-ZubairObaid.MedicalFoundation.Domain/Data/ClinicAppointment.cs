@@ -35,7 +35,7 @@ namespace MuhammadAl_ZubairObaid.MedicalFoundation.Domain
         /// <summary>
         /// Charges regarding appointment
         /// </summary>
-        public Billing Billing { get; set; }
+        public BillingDto Billing { get; set; }
         /// <summary>
         /// Appointment service provider
         /// </summary>

@@ -78,7 +78,7 @@ namespace MuhammadAl_ZubairObaid.MedicalFoundation.WebAPI
                 // Supply TokenValidationParameters
                 options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
                 {
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["DefaultUser:PublicKey"])),
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["DefaultUser:SecretKey"])),
                     AuthenticationType = "Bearer",
                     ValidateIssuer = false
                 };

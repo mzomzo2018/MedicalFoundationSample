@@ -30,7 +30,7 @@ namespace MuhammadAl_ZubairObaid.MedicalFoundation.WebAPI.Controllers
         /// </summary>
         /// <param name="billing"><see cref="Billing"/> object</param>
         /// <returns>Action result</returns>
-        [HttpPut]
+        [HttpPut()]
         [Authorize(Policy = "Admin")]
         public async Task<IActionResult> AddBilling(Billing billing)
         {
@@ -45,7 +45,7 @@ namespace MuhammadAl_ZubairObaid.MedicalFoundation.WebAPI.Controllers
         /// </summary>
         /// <param name="billing"><see cref="Billing"/> object</param>
         /// <returns>Action result</returns>
-        [HttpPost]
+        [HttpPost()]
         [Authorize(Policy = "Admin")]
         public IActionResult UpdateBilling(Billing billing)
         {
@@ -60,7 +60,7 @@ namespace MuhammadAl_ZubairObaid.MedicalFoundation.WebAPI.Controllers
         /// </summary>
         /// <param name="billing"><see cref="Billing"/> object</param>
         /// <returns>Action result</returns>
-        [HttpDelete]
+        [HttpDelete()]
         [Authorize(Policy = "Admin")]
         public IActionResult DeleteBilling(Billing billing)
         {
@@ -90,7 +90,7 @@ namespace MuhammadAl_ZubairObaid.MedicalFoundation.WebAPI.Controllers
         /// <param name="pageIndex">Page number to start; Starting from 0</param>
         /// <param name="countForEveryPage">Number of objects per page</param>
         /// <returns>Action result</returns>
-        [HttpGet]
+        [HttpGet("/billingList/{pageIndex}/{countForEveryPage}")]
         public async Task<IActionResult> GetBillings(int pageIndex, int countForEveryPage)
         {
             var result = await _repository.All(pageIndex, countForEveryPage);

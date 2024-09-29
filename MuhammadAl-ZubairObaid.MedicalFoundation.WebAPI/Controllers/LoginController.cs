@@ -33,7 +33,7 @@ namespace MuhammadAl_ZubairObaid.MedicalFoundation.WebAPI.Controllers
         string GenerateToken(AuthenticationRequest authRequest)
         {
             // Encoding API public key into bytes
-            var key = Encoding.ASCII.GetBytes(_configuration["DefaultUser:PublicKey"]);
+            var key = Encoding.ASCII.GetBytes(_configuration["DefaultUser:SecretKey"]);
             // Encrypting signing credentials using public key using HMAC-SHA256 algorithm
             var credentials = new SigningCredentials(
                 new SymmetricSecurityKey(key),
@@ -69,7 +69,7 @@ namespace MuhammadAl_ZubairObaid.MedicalFoundation.WebAPI.Controllers
         {
             // For testing purposes, default user credentials are stored in appsettings.json
             if (authRequest.Username == _configuration["DefaultUser:Username"] && authRequest.Password == _configuration["DefaultUser:Password"])
-                return Ok("Your authorization token is: " + GenerateToken(authRequest) + ". Please authorize using Swashbuckle Swagger authorization.");
+                return Ok("Your authorization token is: " + GenerateToken(authRequest) + ". Please authorize using Swashbuckle Swagger or Postman authorization.");
             else
                 return Problem("Incorrect sign-in credentials");
         }

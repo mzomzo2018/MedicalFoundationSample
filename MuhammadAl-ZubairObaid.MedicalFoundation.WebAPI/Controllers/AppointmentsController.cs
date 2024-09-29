@@ -29,7 +29,7 @@ namespace MuhammadAl_ZubairObaid.MedicalFoundation.WebAPI.Controllers
         /// </summary>
         /// <param name="clinicAppointment"><see cref="ClinicAppointment"/> object</param>
         /// <returns>Action result</returns>
-        [HttpPut]
+        [HttpPut()]
         [Authorize(Policy = "Admin")]
         public async Task<IActionResult> AddClinicAppointment(ClinicAppointment clinicAppointment)
         {
@@ -44,7 +44,7 @@ namespace MuhammadAl_ZubairObaid.MedicalFoundation.WebAPI.Controllers
         /// </summary>
         /// <param name="clinicAppointment"><see cref="ClinicAppointment"/> object</param>
         /// <returns>Action result</returns>
-        [HttpPost]
+        [HttpPost()]
         [Authorize(Policy = "Admin")]
         public IActionResult UpdateClinicAppointment(ClinicAppointment clinicAppointment)
         {
@@ -59,7 +59,7 @@ namespace MuhammadAl_ZubairObaid.MedicalFoundation.WebAPI.Controllers
         /// </summary>
         /// <param name="clinicAppointment"><see cref="ClinicAppointment"/> object</param>
         /// <returns>Action result</returns>
-        [HttpDelete]
+        [HttpDelete()]
         [Authorize(Policy = "Admin")]
         public IActionResult DeleteClinicAppointment(ClinicAppointment clinicAppointment)
         {
@@ -89,7 +89,7 @@ namespace MuhammadAl_ZubairObaid.MedicalFoundation.WebAPI.Controllers
         /// <param name="pageIndex">Page number to start; Starting from 0</param>
         /// <param name="countForEveryPage">Number of objects per page</param>
         /// <returns>Action result</returns>
-        [HttpGet]
+        [HttpGet("/appointmentList/{pageIndex}/{countForEveryPage}")]
         public async Task<IActionResult> GetClinicAppointments(int pageIndex, int countForEveryPage)
         {
             var result = await _repository.All(pageIndex, countForEveryPage);

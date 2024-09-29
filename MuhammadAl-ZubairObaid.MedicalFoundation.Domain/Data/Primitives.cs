@@ -103,6 +103,10 @@ namespace MuhammadAl_ZubairObaid.MedicalFoundation.Domain.Primitives
         public BillingStatus Status { get; set; }
     }
     /// <summary>
+    /// DTO representation of <see cref="Billing"/>
+    /// </summary>
+    public class BillingDto : MFEntity;
+    /// <summary>
     /// Service provider working shift
     /// </summary>
     public class WorkingShift : MFEntity
